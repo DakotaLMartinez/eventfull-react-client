@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import GroupsIndexContainer from './containers/GroupsIndexContainer';
 import GroupFormContainer from './containers/GroupFormContainer';
+import NewEventContainer from './containers/NewEventContainer';
+import GroupShowContainer from "./containers/GroupShowContainer";
 
 function App() {
   return (
@@ -33,8 +35,15 @@ function App() {
           <Route exact path="/">
             <GroupsIndexContainer />
           </Route>
-          <Route path="/groups/new" render={(routerProps) => <GroupFormContainer anotherProp="myProp" {...routerProps}/>}>
-          </Route>
+          <Route path="/groups/new" component={GroupFormContainer} />
+          <Route
+            path="/groups/:groupId/events/new"
+            component={NewEventContainer}
+          />
+          <Route
+            path="/groups/:groupId"
+            component={GroupShowContainer}
+          />
         </Switch>
       </Router>
     </div>
