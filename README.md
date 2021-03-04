@@ -1572,3 +1572,14 @@ Add a link to the new event route from the /groups/:id route:
 ## Resources
 
 - [PosterMyWall](https://www.postermywall.com/index.php/posters/search?s=technical%20event&tt=image#)
+
+# Part 4
+
+In this part of the series, we'll be introducing redux to our application. We'll be approaching the following tasks:
+
+- Add Redux & Redux-thunk dependencies to project
+- configure our store to utilize the Redux devtools and Redux Thunk middleware
+- Wrap our App component in to `Provider` tag from `react-redux`
+- move the fetch requests in our container components to action creators
+- move container component state (with the exception of our form component state) to the redux store
+- use the `connect` HOC to connect our components to the store's state and dispatch
