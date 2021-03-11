@@ -3,6 +3,7 @@ import {
   START_LOADING_GROUP,
   SUCCESSFULLY_LOADED_GROUPS,
   SUCCESSFULLY_LOADED_GROUP_EVENTS,
+  SUCCESSFULLY_CREATED_GROUP,
 } from ".";
 
 export const fetchGroups = () => {
@@ -38,3 +39,29 @@ export const fetchGroup = (groupId) => {
       });
   };
 };
+
+export const createGroup = (formData) => {
+  return (dispatch) => {
+    return fetch('http://localhost:3001/groups', {
+      method: 'POST',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({group: formData})
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          return res.json().then(errors => Promise.reject(errors))
+        }
+      })
+      .then(groupJson => {
+        dispatch({
+          type: SUCCESSFULLY_CREATED_GROUP,
+          payload: groupJson
+        });
+      })
+  }
+}

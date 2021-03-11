@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { createGroup } from "../actions/groups";
 
-export default class GroupFormContainer extends Component {
+class GroupFormContainer extends Component {
   state = {
     name: "",
+    errors: {}
   };
 
   handleChange = (e) => {
@@ -13,17 +16,14 @@ export default class GroupFormContainer extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3001/groups', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({group: this.state})
-    })
-      .then(res => res.json())
+    this.props.dispatchCreateGroup(this.state)
       .then(groupJson => {
         this.props.history.push('/')
+      })
+      .catch(errors => {
+        this.setState({
+          errors
+        })
       })
   }
 
@@ -32,13 +32,14 @@ export default class GroupFormContainer extends Component {
       <form onSubmit={this.handleSubmit} className="max-w-6xl w-3/4 mx-auto mt-16 shadow-lg px-4 py-6">
         <h1 className="text-center text-3xl font-semibold mb-2">New Group</h1>
         <fieldset>
+          <p className="h-8 pl-4 text-red-400">{this.state.errors.name}</p>
           <input
             type="text"
             name="name"
             onChange={this.handleChange}
             value={this.state.name}
             placeholder="Name your group"
-            className="w-full border p-4 my-4"
+            className="w-full border p-4 mb-4"
           />
         </fieldset>
         <button className="w-full p-4 bg-blue-300 mt-4 hover:bg-blue-400 transition-all duration-200" type="submit">Add Group</button>
@@ -46,3 +47,11 @@ export default class GroupFormContainer extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchCreateGroup: (formData) => dispatch(createGroup(formData))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(GroupFormContainer);

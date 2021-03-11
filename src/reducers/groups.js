@@ -1,14 +1,13 @@
 import {
-  ADD_GROUP,
   START_LOADING_GROUPS,
-  START_LOADING_GROUP,
   SUCCESSFULLY_LOADED_GROUPS,
   FAILED_LOADING_GROUPS,
   SUCCESSFULLY_LOADED_GROUP_EVENTS,
+  SUCCESSFULLY_CREATED_GROUP
 } from "../actions";
 const initialState = {
   loadingState: "notStarted",
-  list: [],
+  list: []
 };
 
 export default function groupsReducer(state = initialState, action) {
@@ -29,6 +28,11 @@ export default function groupsReducer(state = initialState, action) {
           ...state,
           list: state.list.concat(action.payload.group),
         };
+      }
+    case SUCCESSFULLY_CREATED_GROUP:
+      return {
+        ...state,
+        list: state.list.concat(action.payload)
       }
     default:
       return state;
