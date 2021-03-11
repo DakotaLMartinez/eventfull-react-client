@@ -21,7 +21,9 @@ export default function eventReducer(state = initialState, action) {
           ...state.groupsLoaded,
           [action.payload.group.id]: "successful",
         },
-        list: state.list.concat(action.payload.events),
+        list: state.list
+          .filter((event) => event.group_id !== action.payload.group.id)
+          .concat(action.payload.events),
       };
     default:
       return state;
