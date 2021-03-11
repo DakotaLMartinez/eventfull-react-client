@@ -43,7 +43,7 @@ class GroupFormContainer extends Component {
             value={this.state.name}
             placeholder="Name your group"
             className={`w-full border-2 focus:outline-none focus:ring-2 p-4 mb-4 ${
-              this.state.errors.name && "focus:ring-red-400"
+              this.state.errors.name && "focus:ring-red-400 border-red-400"
             }`}
           />
         </fieldset>
