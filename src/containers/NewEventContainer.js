@@ -17,17 +17,18 @@ class NewEventContainer extends Component {
     formData.append("event[start_time]", form.start_time.value);
     formData.append("event[end_time]", form.end_time.value);
     formData.append("event[location]", form.location.value);
-    form.poster.files[0] && formData.append("event[poster]", form.poster.files[0], form.poster.value);
+    form.poster.files[0] &&
+      formData.append("event[poster]", form.poster.files[0], form.poster.value);
     formData.append("event[group_id]", this.props.match.params.groupId);
 
-    this.props.dispatchCreateEvent(formData)
+    this.props
+      .dispatchCreateEvent(formData)
       .then((eventJson) => {
         this.props.history.push(`/groups/${this.props.match.params.groupId}`);
       })
-      .catch(errors => {
-        this.setState({errors})
-      })
-    
+      .catch((errors) => {
+        this.setState({ errors });
+      });
   };
 
   render() {
@@ -39,7 +40,8 @@ class NewEventContainer extends Component {
         <h1 className="text-3xl text-center font-semibold mb-8">New Event</h1>
         <fieldset className="">
           <label htmlFor="name" className="block uppercase">
-            Name <span className="text-red-400">{this.state.errors.name}</span>
+            Name{" "}
+            <span className="text-red-400">{this.state.errors.name}</span>
           </label>
           <input
             type="text"
@@ -134,7 +136,7 @@ class NewEventContainer extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatchCreateEvent: (formData) => dispatch(createEvent(formData))
+    dispatchCreateEvent: (formData) => dispatch(createEvent(formData)),
   };
 };
 
